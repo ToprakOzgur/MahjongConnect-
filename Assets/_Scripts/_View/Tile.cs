@@ -4,11 +4,22 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
+    #region states
+    //STATE DESIGN PATTERN for tile views
+    [HideInInspector] public ITileState currentState;
+    [HideInInspector] public IdleState idleState;
+    [HideInInspector] public MatchingState matchingState;
+    [HideInInspector] public SelectedState selectedState;
+    [HideInInspector] public ChekingRulesState chekingRulesState;
+
+    #endregion
+
+    [HideInInspector] public GameLogicController controller;
+
+    [SerializeField] private SpriteRenderer faceSpriteRenderer;
     [HideInInspector] public Face face;
     [HideInInspector] public Coords coords;
-    [SerializeField] private SpriteRenderer faceSpriteRenderer;
-    private GameLogicController controller;
-    private bool isSelected;
+
     public Face Face
     {
         get => face;
@@ -19,24 +30,18 @@ public class Tile : MonoBehaviour
         }
     }
 
-    public bool IsSelected
+    private void Awake()
     {
-        get => isSelected;
-        set
-        {
-            isSelected = value;
-
-            if (isSelected)
-            {
-                controller.TileIsSelected(this);
-            }
-            else
-            {
-                controller.TileDeselected(this);
-            }
-        }
+        //initializing states
+        idleState = new IdleState(this);
+        matchingState = new MatchingState(this);
+        selectedState = new SelectedState(this);
+        chekingRulesState = new ChekingRulesState(this);
     }
-
+    private void Start()
+    {
+        currentState = idleState;
+    }
     public void AddFaceToTile(Face face)
     {
         this.Face = face;
@@ -48,7 +53,12 @@ public class Tile : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        IsSelected = !IsSelected;
+        currentState.OnMouseDown();
+    }
+
+    public void ChangeState(ITileState nexState)
+    {
+        currentState = nexState;
     }
 }
 
