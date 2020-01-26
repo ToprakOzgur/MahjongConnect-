@@ -19,6 +19,7 @@ public class Game
 
     public void FaceSelected(Face selectedFace, Coords coords)
     {
+
         selectedFacesDictionary.Add(selectedFace, coords);
 
         if (selectedFacesDictionary.Keys.Count == 2)
