@@ -65,9 +65,3 @@ public class Tile : MonoBehaviour
         currentState.OnEnter();
     }
 }
-
-public struct Coords
-{
-    public int posX;
-    public int posY;
-}
