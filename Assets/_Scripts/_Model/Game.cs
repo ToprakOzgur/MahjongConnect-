@@ -8,7 +8,7 @@ public class Game
     private GameLogicController gameContoller;
     private Face[,] faceMatrix;
     private Logic gameLogic;
-    private Dictionary<Face, Coords> selectedFacesDictionary = new Dictionary<Face, Coords>();
+    private List<Face> selectedFacesList = new List<Face>();
 
     public Game(GameLogicController gameContoller, Face[,] faceMatrix)
     {
@@ -17,12 +17,11 @@ public class Game
         gameLogic = new Logic();
     }
 
-    public void FaceSelected(Face selectedFace, Coords coords)
+    public void FaceSelected(Face selectedFace)
     {
+        selectedFacesList.Add(selectedFace);
 
-        selectedFacesDictionary.Add(selectedFace, coords);
-
-        if (selectedFacesDictionary.Keys.Count == 2)
+        if (selectedFacesList.Count == 2)
         {
             //Makes all tileviews checking rules state
 
@@ -35,12 +34,12 @@ public class Game
     public void CheckRules()
     {
         Debug.Log("Checking Rules");
-        var results = gameLogic.CheckRules(faceMatrix, selectedFacesDictionary);
+        var results = gameLogic.CheckRules(faceMatrix, selectedFacesList);
         RuleResultActions(results);
     }
     public void FaceDeselected(Face selectedFace)
     {
-        selectedFacesDictionary.Remove(selectedFace);
+        selectedFacesList.Remove(selectedFace);
     }
 
     public void RuleResultActions(List<RuleResult> ruleResults)

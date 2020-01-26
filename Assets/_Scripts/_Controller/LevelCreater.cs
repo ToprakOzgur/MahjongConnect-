@@ -41,8 +41,6 @@ public class LevelCreater : MonoBehaviour
                     var tile = tileGameobject.GetComponent<Tile>();
                     tile.AddFaceToTile(faces[index]);
                     tile.AddController(gameLogicController);
-                    tile.coords.posX = j;
-                    tile.coords.posY = i;
                     facematrix[j, i] = faces[index];
                     gameLogicController.tileViews.Add(tile);
                     index++;

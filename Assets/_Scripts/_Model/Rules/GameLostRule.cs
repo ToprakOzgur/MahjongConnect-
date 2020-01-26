@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameLostRule : IRule
 {
-    public RuleResult Validate(Face[,] faceMatrix, Dictionary<Face, Coords> selectedFaces)
+    public RuleResult Validate(Face[,] faceMatrix, List<Face> selectedFaces)
     {
         return new RuleResult(false, RuleResultIdentifiers.GameLostRuleIdentifier);
     }

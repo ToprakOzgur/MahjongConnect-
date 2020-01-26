@@ -5,11 +5,10 @@ using System.Linq;
 
 public class PairsSelectedRule : IRule
 {
-    public RuleResult Validate(Face[,] faceMatrix, Dictionary<Face, Coords> selectedFaces)
+    public RuleResult Validate(Face[,] faceMatrix, List<Face> selectedFaces)
     {
-        var faces = selectedFaces.Keys.ToList();
 
-        if (faces[0].number == faces[1].number)
+        if (selectedFaces[0].number == selectedFaces[1].number)
         {
             Debug.Log("PAIRS");
             return new RuleResult(true, RuleResultIdentifiers.PairsSelectedRuleIdentifier);

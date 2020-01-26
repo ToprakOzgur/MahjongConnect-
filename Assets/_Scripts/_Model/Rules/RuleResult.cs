@@ -11,8 +11,7 @@
 public enum RuleResultIdentifiers
 {
     PairsSelectedRuleIdentifier,
-    PathBetweenSelectedPairsIsEmptyRuleIdentifier,
-    MaxTwoReturnToPairsRuleIdentifier,
+    PathFindRuleIdentifier,
     GameWinRuleResultIdentifier,
     GameLostRuleIdentifier
 }

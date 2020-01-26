@@ -14,7 +14,7 @@ public class GameLogicController : MonoBehaviour
 
     public void TileIsSelected(Tile selectedTile)
     {
-        game.FaceSelected(selectedTile.Face, selectedTile.coords);
+        game.FaceSelected(selectedTile.Face);
         selectedTileViews.Add(selectedTile);
 
     }

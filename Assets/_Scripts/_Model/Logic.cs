@@ -11,11 +11,8 @@ public class Logic
         rules.Add(new GameWinRule());
         rules.Add(new GameLostRule());
     }
-    public List<RuleResult> CheckRules(Face[,] faceMatrix, Dictionary<Face, Coords> selectedFaces)
+    public List<RuleResult> CheckRules(Face[,] faceMatrix, List<Face> selectedFaces)
     {
-
-
-
         var ruleResults = new List<RuleResult>();
 
         foreach (var rule in rules)

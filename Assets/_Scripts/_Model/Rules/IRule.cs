@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IRule
 {
-    RuleResult Validate(Face[,] faceMatrix, Dictionary<Face, Coords> selectedFaces);
+    RuleResult Validate(Face[,] faceMatrix, List<Face> selectedFaces);
 }
