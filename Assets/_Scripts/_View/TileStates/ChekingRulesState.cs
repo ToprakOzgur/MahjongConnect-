@@ -11,12 +11,12 @@ public class ChekingRulesState : ITileState
     }
     public void OnEnter()
     {
-        throw new System.NotImplementedException();
+        // Debug.Log("Cheking  Rule state ENTER");
     }
 
     public void OnExit()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Cheking  Rule state Exit");
     }
 
     public void OnMouseDown()

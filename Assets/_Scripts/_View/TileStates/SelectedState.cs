@@ -12,6 +12,7 @@ public class SelectedState : ITileState
     }
     public void OnEnter()
     {
+
         tile.tileColorChanger.ChangeColorToHighlighted();
     }
 

@@ -12,6 +12,7 @@ public class IdleState : ITileState
     }
     public void OnEnter()
     {
+        Debug.Log("IdleState ENTER");
         tile.tileColorChanger.ChangeColorToIdle();
     }
 
@@ -26,8 +27,8 @@ public class IdleState : ITileState
     }
     public void OnMouseDown()
     {
-        tile.controller.TileIsSelected(tile);
         tile.ChangeState(tile.selectedState);
+        tile.controller.TileIsSelected(tile);
         Debug.Log("selected");
     }
 }

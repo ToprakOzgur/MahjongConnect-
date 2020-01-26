@@ -13,6 +13,7 @@ public class Game
     public Game(GameLogicController gameContoller, Face[,] faceMatrix)
     {
         this.faceMatrix = faceMatrix;
+        this.gameContoller = gameContoller;
         gameLogic = new Logic();
     }
 
@@ -22,8 +23,12 @@ public class Game
 
         if (selectedFacesDictionary.Keys.Count == 2)
         {
+            //Makes all tileviews checking rules state
+
+            gameContoller.ChangeAllTileToChekingRulesState();
+
             CheckRules();
-            // selectedFaces.Clear();
+
         }
     }
     public void CheckRules()

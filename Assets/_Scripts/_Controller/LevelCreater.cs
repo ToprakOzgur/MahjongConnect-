@@ -44,6 +44,7 @@ public class LevelCreater : MonoBehaviour
                     tile.coords.posX = j;
                     tile.coords.posY = i;
                     facematrix[j, i] = faces[index];
+                    gameLogicController.tileViews.Add(tile);
                     index++;
                 }
 

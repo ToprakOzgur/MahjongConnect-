@@ -6,6 +6,6 @@ public class GameWinRule : IRule
 {
     public RuleResult Validate(Face[,] faceMatrix, Dictionary<Face, Coords> selectedFaces)
     {
-        throw new System.NotImplementedException();
+        return new RuleResult(false, RuleResultIdentifiers.GameWinRuleResultIdentifier);
     }
 }
