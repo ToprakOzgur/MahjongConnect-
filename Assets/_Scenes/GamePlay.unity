@@ -173,7 +173,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 12
+  orthographic size: 14
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -197,7 +197,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 1, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -304,8 +304,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 43512d1a1dbda4fa2b340b56e87885fa, type: 3}
   - {fileID: 21300000, guid: 4db802bd40e434b5a90ea99f05af9613, type: 3}
   - {fileID: 21300000, guid: 960ad70462bf549fbb2870ceb4f2bf21, type: 3}
+  - {fileID: 21300000, guid: 199d665110c6d46d8a1d5b6c2239e12e, type: 3}
   - {fileID: 21300000, guid: 257f5b569e1964e9a94611284f13ea3f, type: 3}
+  - {fileID: 21300000, guid: d0c532743b4084746b615af358967e40, type: 3}
   - {fileID: 21300000, guid: 6eb0f2f87d3e04906acd0d4c326eda3b, type: 3}
+  - {fileID: 21300000, guid: 1b783b23261a6426aa0abd0d807c7303, type: 3}
   - {fileID: 21300000, guid: f3792f798d8854db59277ae19be95f7b, type: 3}
   - {fileID: 21300000, guid: 0d875da81dd0e4f57950412c29fb2b84, type: 3}
   - {fileID: 21300000, guid: 3716cb3f8e757416aa6f4a4c77d8a8a8, type: 3}
@@ -315,7 +318,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 4d8453bed76844785931169001b40634, type: 3}
   - {fileID: 21300000, guid: ded2937e84d8848d2a89bc1127da444b, type: 3}
   - {fileID: 21300000, guid: 543112973b52e4c288d868aa5bd5b784, type: 3}
+  - {fileID: 21300000, guid: 467d68820dfed4e298211c810c64665b, type: 3}
+  - {fileID: 21300000, guid: 23c93c6393d8948eea6301978c76f979, type: 3}
+  - {fileID: 21300000, guid: 6f260b358e9f4430c9d5adda05913ac8, type: 3}
   - {fileID: 21300000, guid: 68da20e0510464817a9f9da98c72aea6, type: 3}
+  - {fileID: 21300000, guid: 1efab527648494e2bb9a255ed2db72e9, type: 3}
   - {fileID: 21300000, guid: 750021864cd0f4dfe932ce598f8bcb42, type: 3}
   - {fileID: 21300000, guid: 4a1d07a89c9a54aca9ccc1f7d59b72fc, type: 3}
 --- !u!4 &980563410

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(TileColorChanger))]
 public class Tile : MonoBehaviour
 {
     #region states
@@ -14,11 +15,11 @@ public class Tile : MonoBehaviour
 
     #endregion
 
-    [HideInInspector] public GameLogicController controller;
-
     [SerializeField] private SpriteRenderer faceSpriteRenderer;
-    [HideInInspector] public Face face;
+    [HideInInspector] public GameLogicController controller;
+    [HideInInspector] public TileColorChanger tileColorChanger;
     [HideInInspector] public Coords coords;
+    private Face face;
 
     public Face Face
     {
@@ -37,6 +38,8 @@ public class Tile : MonoBehaviour
         matchingState = new MatchingState(this);
         selectedState = new SelectedState(this);
         chekingRulesState = new ChekingRulesState(this);
+
+        tileColorChanger = GetComponent<TileColorChanger>();
     }
     private void Start()
     {
@@ -55,10 +58,11 @@ public class Tile : MonoBehaviour
     {
         currentState.OnMouseDown();
     }
-
     public void ChangeState(ITileState nexState)
     {
+        currentState.OnExit();
         currentState = nexState;
+        currentState.OnEnter();
     }
 }
 

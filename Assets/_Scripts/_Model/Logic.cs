@@ -18,7 +18,7 @@ public class Logic
 
         foreach (var rule in rules)
         {
-            ruleResults.Add(rule.Validate(faceMatrix, selectedFaces));
+            // ruleResults.Add(rule.Validate(faceMatrix, selectedFaces));
         }
 
         return ruleResults;

@@ -11,6 +11,7 @@ public class FaceController : MonoBehaviour
     {
         var spritesIndex = new List<int>();
 
+        Debug.Log(spriteCount + " different sprites needed");
 
         for (int i = 0; i < faces.Length; i++)
         {

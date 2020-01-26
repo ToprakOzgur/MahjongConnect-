@@ -13,12 +13,12 @@ public class GameLogicController : MonoBehaviour
 
     public void TileIsSelected(Tile selectedTile)
     {
-        game.FaceSelected(selectedTile.face, selectedTile.coords);
+        game.FaceSelected(selectedTile.Face, selectedTile.coords);
     }
 
     public void TileDeselected(Tile selectedTile)
     {
-        game.FaceDeselected(selectedTile.face);
+        game.FaceDeselected(selectedTile.Face);
     }
 
     public void GameWon()

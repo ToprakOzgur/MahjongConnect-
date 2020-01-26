@@ -12,12 +12,12 @@ public class SelectedState : ITileState
     }
     public void OnEnter()
     {
-        throw new System.NotImplementedException();
+        tile.tileColorChanger.ChangeColorToHighlighted();
     }
 
     public void OnExit()
     {
-        throw new System.NotImplementedException();
+
     }
 
     public void OnUpdate()

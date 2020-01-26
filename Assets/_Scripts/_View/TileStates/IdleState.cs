@@ -12,12 +12,12 @@ public class IdleState : ITileState
     }
     public void OnEnter()
     {
-        throw new System.NotImplementedException();
+        tile.tileColorChanger.ChangeColorToIdle();
     }
 
     public void OnExit()
     {
-        throw new System.NotImplementedException();
+
     }
 
     public void OnUpdate()
