@@ -9,13 +9,38 @@ public class Game
     private GameLogicController gameContoller;
     private Face[,] faceMatrix;
     private Logic gameLogic;
-    private List<Face> selectedFacesList = new List<Face>();
 
-    public Game(GameLogicController gameContoller, Face[,] faceMatrix)
+    private List<Face> selectedFacesList = new List<Face>();
+    private int score;
+    private int highScore;
+    private readonly int turnSuccesScore = 15;
+    private readonly int turnFailureScore = -10;
+
+    public int Score
+    {
+        get => score;
+        set
+        {
+            if (value < 0)
+                value = 0;
+
+            score = value;
+            if (score > highScore)
+            {
+                highScore = score;
+                gameContoller.UpdateHighScore(score);
+            }
+        }
+
+    }
+
+    public Game(GameLogicController gameContoller, Face[,] faceMatrix, int highScore)
     {
         this.faceMatrix = faceMatrix;
         this.gameContoller = gameContoller;
+        this.highScore = highScore;
         gameLogic = new Logic();
+
     }
 
     public void FaceSelected(Face selectedFace)
@@ -77,8 +102,11 @@ public class Game
         Debug.LogError("turn success");
         RemoveSelecPairsFromMatrix();
 
-        gameContoller.TurnSuccessAction();
+        Score += turnSuccesScore;
+        gameContoller.TurnSuccessAction(Score);
+
         selectedFacesList.Clear();
+
 
         if (CheckLevelWin())
             LevelWinActions();
@@ -88,17 +116,19 @@ public class Game
     private void LevelWinActions()
     {
         gameContoller.GameWon();
+
     }
     private void GameLost()
     {
         gameContoller.GameLost();
+
     }
 
     private void TurnFail()
     {
         Debug.LogError("turn fail");
-
-        gameContoller.TurnFailedAction();
+        Score += turnFailureScore;
+        gameContoller.TurnFailedAction(Score);
         selectedFacesList.Clear();
     }
 

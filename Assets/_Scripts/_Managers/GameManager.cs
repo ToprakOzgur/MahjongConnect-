@@ -67,4 +67,8 @@ public class GameManager : MonoBehaviour
         return PlayerPrefs.GetInt($"level{levelNumber}", 0) == 1;
     }
 
+    private void OnApplicationQuit()
+    {
+        PlayerPrefs.Save();
+    }
 }
