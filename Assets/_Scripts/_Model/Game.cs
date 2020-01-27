@@ -48,7 +48,6 @@ public class Game
     {
         if (ruleResults.Any(x => x.identifier == RuleResultIdentifiers.PairsSelectedRuleIdentifier && !x.result)) //there is SmallOverBigRule and result is false
         {
-
             TurnFail();
             return;
         }
@@ -58,39 +57,49 @@ public class Game
         {
             TurnSuccess();
         }
-
         else
         {
             TurnFail();
-
         }
 
-
-        // if (ruleResults.Any(x => x.identifier == RuleResultIdentifiers.GameWinRuleResultIdentifier && x.result)) //there is GameWinnRule and result is true
-        // {
-        //     gameContoller.GameWon();
-        //     return;
-        // }
     }
 
     private void TurnSuccess()
     {
         Debug.LogError("turn success");
-
         RemoveSelecPairsFromMatrix();
 
         gameContoller.TurnSuccessAction();
         selectedFacesList.Clear();
 
+        if (CheckLevelWin())
+            LevelWinActions();
+
     }
+
+    private void LevelWinActions()
+    {
+        Debug.LogWarning("LevelWinnnn");
+    }
+
     private void TurnFail()
     {
         Debug.LogError("turn fail");
-        RemoveSelecPairsFromMatrix();
+
         gameContoller.TurnFailedAction();
         selectedFacesList.Clear();
     }
 
+    private bool CheckLevelWin()
+    {
+        var result = true;
+        foreach (var face in faceMatrix)
+        {
+            if (face != null)
+                result = false;
+        }
+        return result;
+    }
     private void RemoveSelecPairsFromMatrix()
     {
         var selectedFaceCoords = new List<Coords>();

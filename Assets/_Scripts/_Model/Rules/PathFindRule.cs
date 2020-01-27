@@ -37,6 +37,7 @@ public class PathFindRule : IRule
 
 
         var pathFindingResult = IsToFaceConnectedWithTwoRotation(expandedFaceMatrix, selectedFaceCoords);
+        selectedFaceCoords.Clear();
         return new RuleResult(pathFindingResult, RuleResultIdentifiers.PathFindRuleIdentifier);
     }
 

@@ -8,7 +8,6 @@ public class Logic
     {
         rules.Add(new PairsSelectedRule());
         rules.Add(new PathFindRule());
-        rules.Add(new GameWinRule());
         rules.Add(new GameLostRule());
     }
     public List<RuleResult> CheckRules(Face[,] faceMatrix, List<Face> selectedFaces)
