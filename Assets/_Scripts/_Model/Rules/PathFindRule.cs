@@ -28,8 +28,6 @@ public class PathFindRule : IRule
                 {
                     if (expandedFaceMatrix[j, i].number == selectedFaces[0].number)
                     {
-                        Debug.Log(j + " : " + i + " = " + expandedFaceMatrix[j, i].number);
-
                         selectedFaceCoords.Add(new Coords(j, i));
                     }
                 }
@@ -52,13 +50,14 @@ public class PathFindRule : IRule
             for (int j = 0; j < nodes.GetLength(0); j++)
             {
                 nodes[j, i] = new Node(faces[j, i] != null, new Coords(j, i));
+
             }
         }
 
         Node startNode = nodes[selectedFaceCoords[0].rowNumber, selectedFaceCoords[0].columnNumber];
         Node endNode = nodes[selectedFaceCoords[1].rowNumber, selectedFaceCoords[1].columnNumber];
 
-
+        nodes[endNode.coords.rowNumber, endNode.coords.columnNumber].isFull = false;
 
         List<Node> unCheckedSet = new List<Node>();
         HashSet<Node> checkedSet = new HashSet<Node>();
@@ -77,24 +76,9 @@ public class PathFindRule : IRule
                     continue;
 
                 if (nodes[currentNode.coords.rowNumber, i].isFull)
-                {
-
-                    if (currentNode.coords.rowNumber == endNode.coords.rowNumber && i == endNode.coords.columnNumber)
-                    {
-                        if (currentNode.direction == PathDirection.NotCalculated || currentNode.direction == PathDirection.Vertical)
-                            Debug.LogError("found target.cost= " + currentNode.cost);
-                        else
-                        {
-                            Debug.LogError("found target.cost= " + (currentNode.cost + 1));
-                        }
-                    }
-
-
                     break;
-                }
 
-
-                CheckNodeIFUncheckedList(nodes[currentNode.coords.rowNumber, i], unCheckedSet, checkedSet, currentNode, PathDirection.Horizontal);
+                CheckNodeIFUncheckedList(nodes[currentNode.coords.rowNumber, i], unCheckedSet, checkedSet, currentNode, PathDirection.Vertical, endNode);
             }
 
             //Down
@@ -104,20 +88,9 @@ public class PathFindRule : IRule
                     continue;
 
                 if (nodes[currentNode.coords.rowNumber, i].isFull)
-                {
-                    if (currentNode.coords.rowNumber == endNode.coords.rowNumber && i == endNode.coords.columnNumber)
-                    {
-                        if (currentNode.direction == PathDirection.NotCalculated || currentNode.direction == PathDirection.Vertical)
-                            Debug.LogError("found target.cost= " + currentNode.cost);
-                        else
-                        {
-                            Debug.LogError("found target.cost= " + (currentNode.cost + 1));
-                        }
-                    }
                     break;
-                }
 
-                CheckNodeIFUncheckedList(nodes[currentNode.coords.rowNumber, i], unCheckedSet, checkedSet, currentNode, PathDirection.Vertical);
+                CheckNodeIFUncheckedList(nodes[currentNode.coords.rowNumber, i], unCheckedSet, checkedSet, currentNode, PathDirection.Vertical, endNode);
             }
 
             //Right
@@ -127,20 +100,10 @@ public class PathFindRule : IRule
                     continue;
 
                 if (nodes[i, currentNode.coords.columnNumber].isFull)
-                {
-                    if (currentNode.coords.columnNumber == endNode.coords.columnNumber && i == endNode.coords.rowNumber)
-                    {
-                        if (currentNode.direction == PathDirection.NotCalculated || currentNode.direction == PathDirection.Vertical)
-                            Debug.LogError("found target.cost= " + currentNode.cost);
-                        else
-                        {
-                            Debug.LogError("found target.cost= " + (currentNode.cost + 1));
-                        }
-                    }
                     break;
-                }
 
-                CheckNodeIFUncheckedList(nodes[i, currentNode.coords.columnNumber], unCheckedSet, checkedSet, currentNode, PathDirection.Horizontal);
+
+                CheckNodeIFUncheckedList(nodes[i, currentNode.coords.columnNumber], unCheckedSet, checkedSet, currentNode, PathDirection.Horizontal, endNode);
             }
 
             //Left
@@ -150,20 +113,10 @@ public class PathFindRule : IRule
                     continue;
 
                 if (nodes[i, currentNode.coords.columnNumber].isFull)
-                {
-                    if (currentNode.coords.columnNumber == endNode.coords.columnNumber && i == endNode.coords.rowNumber)
-                    {
-                        if (currentNode.direction == PathDirection.NotCalculated || currentNode.direction == PathDirection.Vertical)
-                            Debug.LogError("found target.cost= " + currentNode.cost);
-                        else
-                        {
-                            Debug.LogError("found target.cost= " + (currentNode.cost + 1));
-                        }
-                    }
                     break;
-                }
 
-                CheckNodeIFUncheckedList(nodes[i, currentNode.coords.columnNumber], unCheckedSet, checkedSet, currentNode, PathDirection.Horizontal);
+
+                CheckNodeIFUncheckedList(nodes[i, currentNode.coords.columnNumber], unCheckedSet, checkedSet, currentNode, PathDirection.Horizontal, endNode);
             }
 
 
@@ -171,17 +124,11 @@ public class PathFindRule : IRule
             checkedSet.Add(currentNode);
 
         }
-
-        foreach (var item in checkedSet)
-        {
-            Debug.Log("Node at  " + item.coords.rowNumber + " : " + item.coords.columnNumber);
-        }
-
         return false;
     }
 
 
-    private void CheckNodeIFUncheckedList(Node node, List<Node> unCheckedSet, HashSet<Node> checkedSet, Node currentNode, PathDirection direction)
+    private void CheckNodeIFUncheckedList(Node node, List<Node> unCheckedSet, HashSet<Node> checkedSet, Node currentNode, PathDirection direction, Node endNode)
     {
         if (!checkedSet.Contains(node) && !unCheckedSet.Contains(node))
         {
@@ -189,6 +136,7 @@ public class PathFindRule : IRule
             if (direction == currentNode.direction || currentNode.direction == PathDirection.NotCalculated)
             {
                 node.cost = currentNode.cost;
+
             }
             else
             {
@@ -196,8 +144,17 @@ public class PathFindRule : IRule
 
             }
 
-            node.direction = direction;
-            unCheckedSet.Add(node);
+            if (node.coords.rowNumber == endNode.coords.rowNumber && node.coords.columnNumber == endNode.coords.columnNumber)
+            {
+                Debug.LogError("found target.Cost= " + node.cost);
+            }
+            else
+            {
+                node.direction = direction;
+                unCheckedSet.Add(node);
+            }
+
+
 
             // Debug.Log(node.coords.rowNumber + " : " + node.coords.columnNumber);
 
