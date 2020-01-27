@@ -61,4 +61,24 @@ public class GameLogicController : MonoBehaviour
             tileView.ChangeState(tileView.idleState);
         }
     }
+
+    public void ShowHint()
+    {
+        var hintPairs = game.ShowHint();
+        var hintTiles = new List<Tile>();
+
+        if (hintPairs != null)
+        {
+            foreach (var tile in tileViews)
+            {
+                if (tile != null)
+                {
+                    if (tile.face.number == hintPairs[0].number)
+                    {
+                        tile.tileColorChanger.ChangeColorToHintColor();
+                    }
+                }
+            }
+        }
+    }
 }

@@ -219,3 +219,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idleColor: {r: 1, g: 1, b: 1, a: 1}
   highlightedColor: {r: 0.06741722, g: 0.84136873, b: 0.9528302, a: 1}
+  hintColor: {r: 0.9433962, g: 0.057849795, b: 0.057849795, a: 1}

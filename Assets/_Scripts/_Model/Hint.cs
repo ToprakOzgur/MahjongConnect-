@@ -3,24 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class GameLostRule : IRule
+public class Hint
 {
-    public RuleResult Validate(Face[,] faceMatrix, List<Face> selectedFaces)
+    public List<Face> FindHint(Face[,] faceMatrix)
     {
         var pairs = DetectAllPairs(faceMatrix);
-        var result = true;
 
         foreach (var pair in pairs)
         {
             var pathFinder = new PathFinder();
 
             if (pathFinder.PathFind(faceMatrix, pair))
-                result = false;
+            {
+                return pair;
+            }
+
         }
-
-        return new RuleResult(result, RuleResultIdentifiers.GameLostRuleIdentifier);
+        return null;
     }
-
 
     private List<List<Face>> DetectAllPairs(Face[,] faceMatrix)
     {

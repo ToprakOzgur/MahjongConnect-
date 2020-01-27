@@ -46,6 +46,12 @@ public class Game
 
     public void RuleResultActions(List<RuleResult> ruleResults)
     {
+        if (ruleResults.Any(x => x.identifier == RuleResultIdentifiers.GameLostRuleIdentifier && x.result))
+        {
+            GameLost();
+            return;
+        }
+
         if (ruleResults.Any(x => x.identifier == RuleResultIdentifiers.PairsSelectedRuleIdentifier && !x.result)) //there is SmallOverBigRule and result is false
         {
             TurnFail();
@@ -62,7 +68,9 @@ public class Game
             TurnFail();
         }
 
+
     }
+
 
     private void TurnSuccess()
     {
@@ -100,6 +108,11 @@ public class Game
         }
         return result;
     }
+
+    private void GameLost()
+    {
+        Debug.LogError("GAME LOST ");
+    }
     private void RemoveSelecPairsFromMatrix()
     {
         var selectedFaceCoords = new List<Coords>();
@@ -125,5 +138,14 @@ public class Game
             if (face != null)
                 Debug.LogWarning("kalan");
         }
+    }
+
+
+    public List<Face> ShowHint()
+    {
+        var hint = new Hint();
+        var pairs = hint.FindHint(faceMatrix);
+
+        return pairs;
     }
 }
