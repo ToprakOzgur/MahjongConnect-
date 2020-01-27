@@ -6,8 +6,8 @@ public class Node
 {
     public bool isFull;
     public Coords coords;
-    public PathDirection direction;
-    public int cost = -1;
+    public PathDirection direction = PathDirection.NotCalculated;
+    public int cost = 0;
 
     public Node(bool isFull, Coords coords)
     {
@@ -19,5 +19,6 @@ public class Node
 public enum PathDirection
 {
     Vertical,
-    Horizontal
+    Horizontal,
+    NotCalculated
 }

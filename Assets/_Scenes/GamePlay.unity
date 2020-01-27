@@ -232,6 +232,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d72009c9ed9fb4c2b834cd1ea9fe28b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileViews: []
+  selectedTileViews: []
 --- !u!4 &864561779
 Transform:
   m_ObjectHideFlags: 0
@@ -390,6 +392,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e42f1daa4e36d405db9f76b500903328, type: 2}
   - {fileID: 11400000, guid: 820657984ecbe4a8484c41c53da4cd24, type: 2}
   - {fileID: 11400000, guid: fd0c47f46c55048f883312f54ce64646, type: 2}
+  - {fileID: 11400000, guid: 06544798e7de44d45a2bbd9005506989, type: 2}
   tilePrefab: {fileID: 8181330409260817859, guid: f83fc6d604bad4a25aa837de02a673eb,
     type: 3}
   tileHolder: {fileID: 1317207886}
