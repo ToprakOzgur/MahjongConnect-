@@ -87,7 +87,11 @@ public class Game
 
     private void LevelWinActions()
     {
-        Debug.LogWarning("LevelWinnnn");
+        gameContoller.GameWon();
+    }
+    private void GameLost()
+    {
+        gameContoller.GameLost();
     }
 
     private void TurnFail()
@@ -109,10 +113,7 @@ public class Game
         return result;
     }
 
-    private void GameLost()
-    {
-        Debug.LogError("GAME LOST ");
-    }
+
     private void RemoveSelecPairsFromMatrix()
     {
         var selectedFaceCoords = new List<Coords>();

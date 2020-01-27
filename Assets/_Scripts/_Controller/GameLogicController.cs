@@ -28,7 +28,13 @@ public class GameLogicController : MonoBehaviour
 
     public void GameWon()
     {
-        Debug.Log("GameWon");
+        GameManager.Instance.SaveCurrentGameWon();
+        FindObjectOfType<UIManager>().ShowWonPopup();
+
+    }
+    public void GameLost()
+    {
+        FindObjectOfType<UIManager>().ShowLostPopup();
     }
 
     public void TurnFailedAction()
