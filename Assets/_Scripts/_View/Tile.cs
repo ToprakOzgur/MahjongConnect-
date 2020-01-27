@@ -18,7 +18,7 @@ public class Tile : MonoBehaviour
     [SerializeField] private SpriteRenderer faceSpriteRenderer;
     [HideInInspector] public GameLogicController controller;
     [HideInInspector] public TileColorChanger tileColorChanger;
-    private Face face;
+    [HideInInspector] public Face face;
 
     public Face Face
     {

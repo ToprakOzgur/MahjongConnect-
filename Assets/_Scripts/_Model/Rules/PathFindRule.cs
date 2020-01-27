@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PathFindRule : IRule
 {
+    private readonly int targetRotateCount = 2;
     List<Coords> selectedFaceCoords = new List<Coords>();
     public RuleResult Validate(Face[,] faceMatrix, List<Face> selectedFaces)
     {
@@ -36,13 +37,13 @@ public class PathFindRule : IRule
 
 
         var pathFindingResult = IsToFaceConnectedWithTwoRotation(expandedFaceMatrix, selectedFaceCoords);
-
         return new RuleResult(pathFindingResult, RuleResultIdentifiers.PathFindRuleIdentifier);
     }
 
     //Path Finding Algorithm (similar to A star algorithm but costs  are rotations not distances)
     private bool IsToFaceConnectedWithTwoRotation(Face[,] faces, List<Coords> selectedFaceCoords)
     {
+
         var nodes = new Node[faces.GetLength(0), faces.GetLength(1)];
 
         for (int i = 0; i < nodes.GetLength(1); i++)
@@ -78,7 +79,10 @@ public class PathFindRule : IRule
                 if (nodes[currentNode.coords.rowNumber, i].isFull)
                     break;
 
-                CheckNodeIFUncheckedList(nodes[currentNode.coords.rowNumber, i], unCheckedSet, checkedSet, currentNode, PathDirection.Vertical, endNode);
+                if (CheckNodeIFUncheckedListOrIsTarget(nodes[currentNode.coords.rowNumber, i], unCheckedSet, checkedSet, currentNode, PathDirection.Vertical, endNode))
+                {
+                    return true;
+                }
             }
 
             //Down
@@ -90,7 +94,10 @@ public class PathFindRule : IRule
                 if (nodes[currentNode.coords.rowNumber, i].isFull)
                     break;
 
-                CheckNodeIFUncheckedList(nodes[currentNode.coords.rowNumber, i], unCheckedSet, checkedSet, currentNode, PathDirection.Vertical, endNode);
+                if (CheckNodeIFUncheckedListOrIsTarget(nodes[currentNode.coords.rowNumber, i], unCheckedSet, checkedSet, currentNode, PathDirection.Vertical, endNode))
+                {
+                    return true;
+                }
             }
 
             //Right
@@ -103,7 +110,10 @@ public class PathFindRule : IRule
                     break;
 
 
-                CheckNodeIFUncheckedList(nodes[i, currentNode.coords.columnNumber], unCheckedSet, checkedSet, currentNode, PathDirection.Horizontal, endNode);
+                if (CheckNodeIFUncheckedListOrIsTarget(nodes[i, currentNode.coords.columnNumber], unCheckedSet, checkedSet, currentNode, PathDirection.Horizontal, endNode))
+                {
+                    return true;
+                }
             }
 
             //Left
@@ -116,7 +126,10 @@ public class PathFindRule : IRule
                     break;
 
 
-                CheckNodeIFUncheckedList(nodes[i, currentNode.coords.columnNumber], unCheckedSet, checkedSet, currentNode, PathDirection.Horizontal, endNode);
+                if (CheckNodeIFUncheckedListOrIsTarget(nodes[i, currentNode.coords.columnNumber], unCheckedSet, checkedSet, currentNode, PathDirection.Horizontal, endNode))
+                {
+                    return true;
+                }
             }
 
 
@@ -128,25 +141,25 @@ public class PathFindRule : IRule
     }
 
 
-    private void CheckNodeIFUncheckedList(Node node, List<Node> unCheckedSet, HashSet<Node> checkedSet, Node currentNode, PathDirection direction, Node endNode)
+    private bool CheckNodeIFUncheckedListOrIsTarget(Node node, List<Node> unCheckedSet, HashSet<Node> checkedSet, Node currentNode, PathDirection direction, Node endNode)
     {
+
         if (!checkedSet.Contains(node) && !unCheckedSet.Contains(node))
         {
 
             if (direction == currentNode.direction || currentNode.direction == PathDirection.NotCalculated)
             {
                 node.cost = currentNode.cost;
-
             }
             else
             {
                 node.cost = currentNode.cost + 1;
-
             }
 
             if (node.coords.rowNumber == endNode.coords.rowNumber && node.coords.columnNumber == endNode.coords.columnNumber)
             {
                 Debug.LogError("found target.Cost= " + node.cost);
+                return node.cost <= targetRotateCount;
             }
             else
             {
@@ -154,11 +167,10 @@ public class PathFindRule : IRule
                 unCheckedSet.Add(node);
             }
 
-
-
             // Debug.Log(node.coords.rowNumber + " : " + node.coords.columnNumber);
 
         }
+        return false;
     }
 
 

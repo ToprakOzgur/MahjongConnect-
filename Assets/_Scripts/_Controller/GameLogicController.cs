@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameLogicController : MonoBehaviour
@@ -14,9 +15,8 @@ public class GameLogicController : MonoBehaviour
 
     public void TileIsSelected(Tile selectedTile)
     {
-        game.FaceSelected(selectedTile.Face);
         selectedTileViews.Add(selectedTile);
-
+        game.FaceSelected(selectedTile.Face);
     }
 
     public void TileDeselected(Tile selectedTile)
@@ -33,11 +33,19 @@ public class GameLogicController : MonoBehaviour
 
     public void TurnFailedAction()
     {
-
+        ChangeAllTileIdleState();
+        selectedTileViews.Clear();
     }
     public void TurnSuccessAction()
     {
+        foreach (var tile in selectedTileViews)
+        {
+            if (tile != null)
+                Destroy(tile.gameObject);
+            tileViews.Remove(tile);
+        }
 
+        ChangeAllTileIdleState();
     }
     public void ChangeAllTileToChekingRulesState()
     {
@@ -45,6 +53,12 @@ public class GameLogicController : MonoBehaviour
         {
             tileView.ChangeState(tileView.chekingRulesState);
         }
-
+    }
+    public void ChangeAllTileIdleState()
+    {
+        foreach (var tileView in tileViews)
+        {
+            tileView.ChangeState(tileView.idleState);
+        }
     }
 }
